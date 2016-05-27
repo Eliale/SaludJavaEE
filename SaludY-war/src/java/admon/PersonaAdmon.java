@@ -12,7 +12,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import ln.PersonaLN;
+import ln.SignosVitalesLN;
 import modelo.Persona;
+import modelo.Signosvitales;
 
 /**
  *
@@ -24,16 +26,25 @@ import modelo.Persona;
 public class PersonaAdmon {
 
     @EJB
+    private SignosVitalesLN signosVitalesLN;
+
+    @EJB
     private PersonaLN personaLN;
     private Persona persona;
     private List<Persona> personas;
     private static int nr;
     private int idP;
 
+    // De signos vitales
+    private Signosvitales signosvitales;
+    private List<Signosvitales> lista_signosvitales;
+    private static int nr2;
+    private int idS;
+
     public PersonaAdmon() {
     }
-    
-     public Persona getPersona() {
+
+    public Persona getPersona() {
         return persona;
     }
 
@@ -60,10 +71,6 @@ public class PersonaAdmon {
     }
 
     public void creaPersona(ActionEvent e) {
-      //  persona=new Persona2();
-        //  nr++;
-        //persona.setIdpersona(nr);
-        //persona.setIdpersona(cidPersona());
         crearPersona();
     }
 
@@ -71,22 +78,19 @@ public class PersonaAdmon {
         persona = new Persona();
         persona.setIdpersona(cidPersona());
     }
-     public void creaPersona2(ActionEvent e) {
+
+    public void creaPersona2(ActionEvent e) {
         persona = new Persona();
-       // persona.setIdpersona(cidPersona()-1);
+
     }
-     
 
     public void agregar(ActionEvent e) {
-       // setNr();
-        // persona.setIdpersona(getNr());
         personaLN.agregar(persona);
-        //persona=new Persona2();
         crearPersona();
 
     }
-    
-    public void edita(ActionEvent e){
+
+    public void edita(ActionEvent e) {
         personaLN.editar(persona);
     }
 
@@ -130,12 +134,132 @@ public class PersonaAdmon {
         }
 
     }
-    
-       public void buscar2() {
+
+    public void buscar2() {
         Persona p = personaLN.buscar(getPersona().getIdpersona());
         if (p != null) {
             persona = p;
         }
 
     }
+
+    public void buscar3() {
+        Persona p = personaLN.buscar(getPersona().getIdpersona());
+        if (p != null) {
+            persona = p;
+        }
+        crearSignoVital();
+    }
+
+       //metodos para Signos vitales
+    public Signosvitales getSignosvitales() {
+        return signosvitales;
+    }
+
+    public void setSignosvitales(Signosvitales signosvitales) {
+        this.signosvitales = signosvitales;
+    }
+
+    public List<Signosvitales> getLista_signosvitales() {
+        return signosVitalesLN.lista_sv();
+    }
+
+    public void setLista_signosvitales() {
+        this.lista_signosvitales = signosVitalesLN.lista_sv();
+    }
+
+//    public void listar_sv(ActionEvent e) {
+//        lista_signosvitales = signosVitalesLN.lista_sv();
+//    }
+
+    public void iniciar_sv(ActionEvent e) {
+        
+        
+        setLista_signosvitales();
+    }
+
+    public void creaSignoVital(ActionEvent e) {
+        crearSignoVital();
+    }
+
+    public void crearSignoVital() {
+        signosvitales = new Signosvitales();
+        signosvitales.setIdsv(cidSv());
+        signosvitales.setIdpersona(getPersona());
+
+    }
+
+    public void creaSignoV2(ActionEvent e) {
+        signosvitales = new Signosvitales();
+
+    }
+
+    public int[] mostrarPersonas() {
+        return personaLN.personasid();
+    }
+
+    public void agregarSV(ActionEvent e) {
+        signosVitalesLN.agregarSignoV(signosvitales);
+        crearSignoVital();
+
+    }
+
+    public void editaSv(ActionEvent e) {
+        signosVitalesLN.editarSv(signosvitales);
+    }
+
+    public void limpiarSv(ActionEvent e) {
+        signosvitales = new Signosvitales();
+
+    }
+
+    public int cidSv() {
+        if (signosVitalesLN.numRanSv() == 0) {
+            nr2 = 1;
+        } else {
+            setLista_signosvitales();
+            nr2 = lista_signosvitales.get(lista_signosvitales.size() - 1).getIdsv() + 1;
+        }
+
+        return nr2;
+    }
+
+    public int getNr2() {
+        return nr2;
+
+    }
+
+    public void setNr2() {
+        nr2 = signosVitalesLN.numRanSv() + 1;
+    }
+
+    public int getIdS() {
+        return idS;
+    }
+
+    public void setIdS(int idS) {
+        this.idS = idS;
+    }
+
+    public void buscarSV(ActionEvent e) {
+        Signosvitales sv = signosVitalesLN.buscarSignoV(idS);
+        if (sv != null) {
+            signosvitales = sv;
+        }
+
+    }
+
+    public void buscarSV2() {
+        Signosvitales sv = signosVitalesLN.buscarSignoV(getSignosvitales().getIdsv());
+        if (sv != null) {
+            signosvitales = sv;
+        }
+
+    }
+
+    public void agregarPer(ActionEvent e) {
+        persona.setIdpersona(idS);
+        signosvitales.setIdpersona(persona);
+    }
+
 }

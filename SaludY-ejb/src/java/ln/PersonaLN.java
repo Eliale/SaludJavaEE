@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ln;
 
 import dao.PersonaFacade;
@@ -20,37 +19,51 @@ import modelo.Persona;
 @Stateless
 @LocalBean
 public class PersonaLN {
+
     @EJB
     private PersonaFacade personaFacade;
     private Persona persona;
-    
-    
-    public void crearPersona(Persona p){
+    private Integer[] ids;
+
+    public void crearPersona(Persona p) {
         personaFacade.create(p);
     }
-    
-    public void agregar(Persona p){
+
+    public void agregar(Persona p) {
         personaFacade.create(p);
     }
-    
-    public Persona buscar(int idPersona){
+
+    public Persona buscar(int idPersona) {
         return personaFacade.find(idPersona);
-        
+
     }
-    
-    public void editar(Persona p){
+
+    public void editar(Persona p) {
         personaFacade.edit(p);
     }
-    
-    public List<Persona> personas(){
+
+    public List<Persona> personas() {
         return personaFacade.findAll();
     }
-    
-    public int numRan(){
+
+    public int [] personasid() {
+        Object[] list = personas().toArray();
+        Persona [] pers=(Persona[]) list;
+        int [] ids = null;
+        
+        for (int i = 0; i < pers.length; i++) {
+           ids[i] = pers[i].getIdpersona();
+            
+        }
+       return ids; 
+
+    }
+
+    public int numRan() {
         return personaFacade.count();
     }
-    
-    public void borrar(Persona p){
+
+    public void borrar(Persona p) {
         personaFacade.remove(p);
     }
 }
