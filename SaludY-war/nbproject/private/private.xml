@@ -5,13 +5,13 @@
         <group>
             <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/index.xhtml</file>
             <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/registra.xhtml</file>
-            <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/personas2.xhtml</file>
             <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/edita.xhtml</file>
+            <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/personas2.xhtml</file>
+            <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/registra_sv.xhtml</file>
+            <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/historial.xhtml</file>
             <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/buscarP.xhtml</file>
-            <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/buscarP2.xhtml</file>
             <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/src/java/admon/PersonaAdmon.java</file>
             <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/web/listarP.xhtml</file>
-            <file>file:/home/eli/NetBeansProjects/SaludY/SaludY-war/src/java/admon/SignosAdmon.java</file>
         </group>
     </open-files>
 </project-private>
