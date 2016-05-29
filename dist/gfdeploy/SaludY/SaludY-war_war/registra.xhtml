@@ -4,16 +4,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Registro de signos vitales</title>
     </h:head>
     <h:body>
         <f:view>
             <h:form>
-                <h1><h:outputText value="Create/Edit"/></h1>
+                <h1><h:outputText value="Registro"/></h1>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Idsv:" />
                     <h:outputText value="#{personaAdmon.signosvitales.idsv}"/>
-                    <h:outputLabel value="Fecha:" for="fecha" />
+                    <h:outputLabel value="Fecha:" />
                     <h:inputText id="fecha" value="#{personaAdmon.signosvitales.fecha}" title="Fecha" >
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:inputText>
@@ -27,7 +27,7 @@
                     <h:outputText value="#{personaAdmon.persona.idpersona}" />
            
                 </h:panelGrid>                           
-           <h:commandButton value="Registra" action="index" actionListener="#{personaAdmon.agregarSV(e)}" />
+           <h:commandButton value="Registra" action="historial" actionListener="#{personaAdmon.agregarSV(e)}" />
            <h:commandButton value="Inicio" action="index"/>
            <h:commandButton value="Historial" action="historial" actionListener="#{personaAdmon.iniciar_sv}"/>   
             </h:form>                                                                       

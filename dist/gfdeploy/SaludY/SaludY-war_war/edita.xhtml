@@ -4,12 +4,12 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Facelet Title</title>
+        <title> Edita Personas</title>
     </h:head>
     <h:body>
         <f:view>
             <h:form >
-                <h1><h:outputText value="Edit"/></h1>
+                <h1><h:outputText value="Edita"/></h1>
                 <h:panelGrid columns="2">
                    
                      <h:outputLabel value="Nombre:" for="nombre" />
@@ -23,8 +23,9 @@
                     <h:outputLabel value="Sexo:" for="sexo" />
                     <h:inputText id="sexo" value="#{personaAdmon.persona.sexo}" title="Sexo" />
                 </h:panelGrid>
-                <h:commandButton value="Editar" action="index" actionListener="#{personaAdmon.edita(e)}" />
-                
+                <h:commandButton value="Editar" action="listarP" actionListener="#{personaAdmon.edita(e)}" />
+                <h:commandButton value="Registrar Signos Vitales" action="registra" /> 
+                <h:commandButton value="Inicio" action="index" />
             </h:form>
              
             

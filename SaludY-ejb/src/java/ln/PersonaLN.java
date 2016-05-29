@@ -46,18 +46,6 @@ public class PersonaLN {
         return personaFacade.findAll();
     }
 
-    public int [] personasid() {
-        Object[] list = personas().toArray();
-        Persona [] pers=(Persona[]) list;
-        int [] ids = null;
-        
-        for (int i = 0; i < pers.length; i++) {
-           ids[i] = pers[i].getIdpersona();
-            
-        }
-       return ids; 
-
-    }
 
     public int numRan() {
         return personaFacade.count();

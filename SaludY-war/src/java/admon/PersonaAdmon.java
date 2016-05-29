@@ -5,6 +5,8 @@
  */
 package admon;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -32,6 +34,7 @@ public class PersonaAdmon {
     private PersonaLN personaLN;
     private Persona persona;
     private List<Persona> personas;
+    private List<Integer> personasids;
     private static int nr;
     private int idP;
 
@@ -41,7 +44,12 @@ public class PersonaAdmon {
     private static int nr2;
     private int idS;
 
+    //
+    private int x;
+    private ArrayList<Integer> persondas_id;
+
     public PersonaAdmon() {
+        persondas_id = new ArrayList<Integer>();
     }
 
     public Persona getPersona() {
@@ -60,10 +68,23 @@ public class PersonaAdmon {
         this.personas = personaLN.personas();
     }
 
-    public void listar(ActionEvent e) {
-        personas = personaLN.personas();
+    public List<Integer> getPersonasids() {
+        // Aqui habra que convertir get(i).getIdPersona
+        System.out.println("Entranado");
+        setPersonas();
+        for (int i = 0; i < personas.size(); i++) {
+            System.out.println("entra a for");
+            persondas_id.add(personas.get(i).getIdpersona());
+
+        }
+        return persondas_id;
 
     }
+
+    public void setPersonasids(List<Integer> personasids) {
+        this.personasids = getPersonasids();
+    }
+
 
     //otro metodo para listas:
     public void iniciarPersonas(ActionEvent e) {
@@ -94,10 +115,6 @@ public class PersonaAdmon {
         personaLN.editar(persona);
     }
 
-    public void limpiar(ActionEvent e) {
-        persona = new Persona();
-
-    }
 
     public int cidPersona() {
         if (personaLN.numRan() == 0) {
@@ -127,22 +144,6 @@ public class PersonaAdmon {
         this.idP = idP;
     }
 
-    public void buscar(ActionEvent e) {
-        Persona p = personaLN.buscar(idP);
-        if (p != null) {
-            persona = p;
-        }
-
-    }
-
-    public void buscar2() {
-        Persona p = personaLN.buscar(getPersona().getIdpersona());
-        if (p != null) {
-            persona = p;
-        }
-
-    }
-
     public void buscar3() {
         Persona p = personaLN.buscar(getPersona().getIdpersona());
         if (p != null) {
@@ -151,7 +152,7 @@ public class PersonaAdmon {
         crearSignoVital();
     }
 
-       //metodos para Signos vitales
+    //metodos para Signos vitales
     public Signosvitales getSignosvitales() {
         return signosvitales;
     }
@@ -168,49 +169,38 @@ public class PersonaAdmon {
         this.lista_signosvitales = signosVitalesLN.lista_sv();
     }
 
-//    public void listar_sv(ActionEvent e) {
-//        lista_signosvitales = signosVitalesLN.lista_sv();
-//    }
-
     public void iniciar_sv(ActionEvent e) {
-        
-        
         setLista_signosvitales();
     }
 
     public void creaSignoVital(ActionEvent e) {
         crearSignoVital();
+        
     }
-
+      
     public void crearSignoVital() {
         signosvitales = new Signosvitales();
         signosvitales.setIdsv(cidSv());
+        signosvitales.setFecha(new Date());
         signosvitales.setIdpersona(getPersona());
 
     }
 
-    public void creaSignoV2(ActionEvent e) {
-        signosvitales = new Signosvitales();
-
-    }
-
-    public int[] mostrarPersonas() {
-        return personaLN.personasid();
-    }
 
     public void agregarSV(ActionEvent e) {
         signosVitalesLN.agregarSignoV(signosvitales);
-        crearSignoVital();
+    }
+
+    public void agregarSV2(ActionEvent e) {
+         
+        // Aqui es la onda antes de agregarlo necesito de una fomra cachar el id seleccionado
+        signosvitales.setIdpersona(personaLN.buscar(x));      
+        signosVitalesLN.agregarSignoV(signosvitales);
 
     }
 
     public void editaSv(ActionEvent e) {
         signosVitalesLN.editarSv(signosvitales);
-    }
-
-    public void limpiarSv(ActionEvent e) {
-        signosvitales = new Signosvitales();
-
     }
 
     public int cidSv() {
@@ -241,25 +231,12 @@ public class PersonaAdmon {
         this.idS = idS;
     }
 
-    public void buscarSV(ActionEvent e) {
-        Signosvitales sv = signosVitalesLN.buscarSignoV(idS);
-        if (sv != null) {
-            signosvitales = sv;
-        }
-
+    public int getX() {
+        return x;
     }
 
-    public void buscarSV2() {
-        Signosvitales sv = signosVitalesLN.buscarSignoV(getSignosvitales().getIdsv());
-        if (sv != null) {
-            signosvitales = sv;
-        }
-
-    }
-
-    public void agregarPer(ActionEvent e) {
-        persona.setIdpersona(idS);
-        signosvitales.setIdpersona(persona);
+    public void setX(int x) {
+        this.x = x;
     }
 
 }

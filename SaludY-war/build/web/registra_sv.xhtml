@@ -4,16 +4,16 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Registro de signos vitales</title>
+        <title>Registro de Signos vitales</title>
     </h:head>
     <h:body>
         <f:view>
             <h:form>
-                <h1><h:outputText value="Registro"/></h1>
+                <h1><h:outputText value="Crear Signo vital"/></h1>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Idsv:" />
                     <h:outputText value="#{personaAdmon.signosvitales.idsv}"/>
-                    <h:outputLabel value="Fecha:" />
+                    <h:outputLabel value="Fecha:" for="fecha" />
                     <h:inputText id="fecha" value="#{personaAdmon.signosvitales.fecha}" title="Fecha" >
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:inputText>
@@ -23,14 +23,18 @@
                     <h:inputText id="presions" value="#{personaAdmon.signosvitales.presions}" title="Presions" />
                     <h:outputLabel value="Peso:" for="peso" />
                     <h:inputText id="peso" value="#{personaAdmon.signosvitales.peso}" title="Peso" />
-                    <h:outputLabel value="Idpersona:"/>
-                    <h:outputText value="#{personaAdmon.persona.idpersona}" />
-           
-                </h:panelGrid>                           
-           <h:commandButton value="Registra" action="historial" actionListener="#{personaAdmon.agregarSV(e)}" />
+                    <h:outputLabel value="Idpersona:" for="idpersona" />     
+                    <h:selectOneMenu id="idpersona" value="#{personaAdmon.x}" title="Idpersona" >
+                        <!-- TODO: update below reference to list of available items-->
+                        <f:selectItems value="#{personaAdmon.personasids}"/>
+                    </h:selectOneMenu>
+                    
+                </h:panelGrid>
+           <h:commandButton value="Registra Signo Vital" action="historial" actionListener="#{personaAdmon.agregarSV2(e)}" />
            <h:commandButton value="Inicio" action="index"/>
            <h:commandButton value="Historial" action="historial" actionListener="#{personaAdmon.iniciar_sv}"/>   
-            </h:form>                                                                       
+          
+            </h:form>
         </f:view>
 
         
