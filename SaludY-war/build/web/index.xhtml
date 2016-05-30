@@ -7,20 +7,20 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        Hala Madrid
-        <f:view>
-            <h:form>
+       
+        <f:view >
+            <h:form style="background-color: appworkspace">
                 
+                <div align="center">
               
-                <h:commandButton value="AgregarPersona" action="personas2" actionListener="#{personaAdmon.creaPersona(e)}" /> 
+                <h:commandLink value="AgregarPersona" action="personas2" actionListener="#{personaAdmon.creaPersona(e)}" /> 
                 <br/>
-                <h:commandButton value="Listar" action="listarP" actionListener="#{personaAdmon.iniciarPersonas(e)}" />   
+                <h:commandLink value="Listar" action="listarP" actionListener="#{personaAdmon.iniciarPersonas(e)}" />   
                 <br/>
-                <h:commandButton value="Buscar" action="buscarP" actionListener="#{personaAdmon.creaPersona2(e)}" />      
-                <br/>
-             
-                <h:commandButton value="Registra Signos" action="registra_sv" actionListener="#{personaAdmon.creaSignoVital}" />
-                 
+                <h:commandLink value="Buscar" action="buscarP" actionListener="#{personaAdmon.creaPersona2(e)}" />      
+                <br/>            
+                <h:commandLink value="Registra Signos" action="registra_sv" actionListener="#{personaAdmon.creaSignoVital}" />
+                </div>
                  
             </h:form>
         </f:view>

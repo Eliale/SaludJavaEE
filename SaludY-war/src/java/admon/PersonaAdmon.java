@@ -9,8 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import ln.PersonaLN;
@@ -33,23 +35,27 @@ public class PersonaAdmon {
     @EJB
     private PersonaLN personaLN;
     private Persona persona;
-    private List<Persona> personas;
-    private List<Integer> personasids;
+    private List<Persona> personas; // Todas las personas
+    private List<Integer> personasids;// Todos los id de personas
+
     private static int nr;
     private int idP;
 
     // De signos vitales
     private Signosvitales signosvitales;
-    private List<Signosvitales> lista_signosvitales;
+    private List<Signosvitales> lista_signosvitales; // Todos los signos vitales
     private static int nr2;
     private int idS;
 
     //
     private int x;
     private ArrayList<Integer> persondas_id;
-
+    private String pagina;
+    
+    
     public PersonaAdmon() {
         persondas_id = new ArrayList<Integer>();
+
     }
 
     public Persona getPersona() {
@@ -70,7 +76,7 @@ public class PersonaAdmon {
 
     public List<Integer> getPersonasids() {
         // Aqui habra que convertir get(i).getIdPersona
-        System.out.println("Entranado");
+
         setPersonas();
         for (int i = 0; i < personas.size(); i++) {
             System.out.println("entra a for");
@@ -85,7 +91,6 @@ public class PersonaAdmon {
         this.personasids = getPersonasids();
     }
 
-
     //otro metodo para listas:
     public void iniciarPersonas(ActionEvent e) {
         setPersonas();
@@ -98,6 +103,7 @@ public class PersonaAdmon {
     public void crearPersona() {
         persona = new Persona();
         persona.setIdpersona(cidPersona());
+
     }
 
     public void creaPersona2(ActionEvent e) {
@@ -108,13 +114,20 @@ public class PersonaAdmon {
     public void agregar(ActionEvent e) {
         personaLN.agregar(persona);
         crearPersona();
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        FacesMessage mensaje;
+        mensaje = new FacesMessage("Nueva persona registrada");
+        contexto.addMessage(null, mensaje);
 
     }
 
     public void edita(ActionEvent e) {
         personaLN.editar(persona);
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        FacesMessage mensaje;
+        mensaje = new FacesMessage("Persona modificada");
+        contexto.addMessage(null, mensaje);
     }
-
 
     public int cidPersona() {
         if (personaLN.numRan() == 0) {
@@ -148,7 +161,12 @@ public class PersonaAdmon {
         Persona p = personaLN.buscar(getPersona().getIdpersona());
         if (p != null) {
             persona = p;
+            setPagina("");
         }
+        else{
+            setPagina("buscarP");
+    }
+        
         crearSignoVital();
     }
 
@@ -175,9 +193,9 @@ public class PersonaAdmon {
 
     public void creaSignoVital(ActionEvent e) {
         crearSignoVital();
-        
+
     }
-      
+
     public void crearSignoVital() {
         signosvitales = new Signosvitales();
         signosvitales.setIdsv(cidSv());
@@ -186,16 +204,24 @@ public class PersonaAdmon {
 
     }
 
-
     public void agregarSV(ActionEvent e) {
         signosVitalesLN.agregarSignoV(signosvitales);
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        FacesMessage mensaje;
+        mensaje = new FacesMessage("Signo vital agregado a persona " + signosvitales.getIdpersona().getNombre());
+        contexto.addMessage(null, mensaje);
     }
 
     public void agregarSV2(ActionEvent e) {
-         
+
         // Aqui es la onda antes de agregarlo necesito de una fomra cachar el id seleccionado
-        signosvitales.setIdpersona(personaLN.buscar(x));      
+        signosvitales.setIdpersona(personaLN.buscar(x));
         signosVitalesLN.agregarSignoV(signosvitales);
+
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        FacesMessage mensaje;
+        mensaje = new FacesMessage("Signo vital agregado a persona " + signosvitales.getIdpersona().getNombre());
+        contexto.addMessage(null, mensaje);
 
     }
 
@@ -237,6 +263,14 @@ public class PersonaAdmon {
 
     public void setX(int x) {
         this.x = x;
+    }
+
+    public String getPagina() {
+        return pagina;
+    }
+
+    public void setPagina(String pagina) {
+        this.pagina = pagina;
     }
 
 }

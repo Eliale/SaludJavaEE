@@ -7,8 +7,9 @@
         <title>Registro de signos vitales</title>
     </h:head>
     <h:body>
+        <div align="center">
         <f:view>
-            <h:form>
+            <h:form style="background-color: darkcyan">
                 <h1><h:outputText value="Registro"/></h1>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Idsv:" />
@@ -32,7 +33,7 @@
            <h:commandButton value="Historial" action="historial" actionListener="#{personaAdmon.iniciar_sv}"/>   
             </h:form>                                                                       
         </f:view>
-
+</div>
         
     </h:body>
 </html>
